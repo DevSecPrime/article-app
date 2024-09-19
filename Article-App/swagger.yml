@@ -1,0 +1,1052 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Article App
+
+components:
+  schemas:
+    # Category Schemas
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        categoryName:
+          type: string
+          example: "Technology"
+        color:
+          type: string
+          example: "#000000"
+        createdAt:
+          type: string
+          format: date-time
+          example: "15950073795"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "1595007379"
+
+    CreateCategoryRequest:
+      type: object
+      properties:
+        categoryName:
+          type: string
+          example: "Technology"
+        color:
+          type: string
+          example: "#000000"
+      required:
+        - name
+        - color
+
+    UpdateCategoryRequest:
+      type: object
+      properties:
+        categoryName:
+          type: string
+          example: "Technology"
+        color:
+          type: string
+          example: "#000000"
+      required:
+        - categoryName
+        - color
+
+    CategoriesResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Category"
+        message:
+          type: string
+          example: "Categories fetched successfully."
+
+    # Article Schemas
+    Article:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Introduction to Node.js"
+        content:
+          type: string
+          example: "Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine..."
+        categoryId:
+          type: integer
+          example: 1
+        authorId:
+          type: integer
+          example: 101
+        summary:
+          type: string
+          example: "A brief summary of the article"
+        publishedYear:
+          type: string
+          example: "2024"
+        abstract:
+          type: string
+          example: "An abstract explaining the details of the article"
+        link:
+          type: string
+          example: "https://example.com/nodejs-article"
+        journal:
+          type: string
+          example: "Journal of JavaScript Studies"
+        createdAt:
+          type: string
+          format: date-time
+          example: "1595007379"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "1595007379"
+
+    CreateArticleRequest:
+      type: object
+      properties:
+        categoryId:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Understanding Node.js Event Loop"
+        author:
+          type: string
+          example: "John Doe"
+        summary:
+          type: string
+          example: "A comprehensive guide to the Node.js event loop."
+        publishedYear:
+          type: string
+          example: "2024"
+        abstract:
+          type: string
+          example: "This article provides an in-depth explanation of the Node.js event loop and its functioning."
+        link:
+          type: string
+          example: "https://example.com/article-nodejs-event-loop"
+        journal:
+          type: string
+          example: "Journal of JavaScript Studies"
+      required:
+        - categoryId
+        - title
+        - author
+        - summary
+        - publishedYear
+        - abstract
+        - link
+        - journal
+
+    CreateArticleSuccess:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 201
+        data:
+          $ref: "#/components/schemas/Article"
+        message:
+          type: string
+          example: "Article created successfully."
+
+    UpdateArticleRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "Advanced Node.js"
+        categoryId:
+          type: integer
+          example: 1
+        author:
+          type: string
+          example: "John Doe"
+        summary:
+          type: string
+          example: "A brief summary of the article"
+        publishedYear:
+          type: string
+          example: "2024"
+        abstract:
+          type: string
+          example: "An abstract explaining the details of the article"
+        link:
+          type: string
+          example: "https://example.com/advanced-nodejs"
+        journal:
+          type: string
+          example: "Journal of JavaScript Studies"
+      required:
+        - title
+        - content
+        - categoryId
+        - author
+        - summary
+        - publishedYear
+        - abstract
+        - link
+        - journal
+
+    UpdateArticleSuccess:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        data:
+          $ref: "#/components/schemas/Article"
+        message:
+          type: string
+          example: "Article updated successfully."
+
+    ArticlesResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Article"
+        message:
+          type: string
+          example: "Articles fetched successfully."
+
+    # User Schemas
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 101
+        countryCode:
+          type: string
+          example: "+91"
+        phoneNo:
+          type: string
+          example: "1234567890"
+        otp:
+          type: number
+          example: 123456
+        createdAt:
+          type: string
+          format: date-time
+          example: "1595007379"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "1595008978"
+
+    RegisterRequest:
+      type: object
+      properties:
+        countryCode:
+          type: string
+          example: "+91"
+
+        phoneNo:
+          type: string
+          example: "1234567890"
+      required:
+        - countryCode
+        - phoneNo
+
+    RegisterSuccess:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 201
+        data:
+          $ref: "#/components/schemas/User"
+        message:
+          type: string
+          example: "User registered successfully."
+
+    # OTP Schemas
+    OtpVerification:
+      type: object
+      properties:
+        countryCode:
+          type: string
+          example: "+91"
+        phoneNo:
+          type: string
+          example: "1234567890"
+        otp:
+          type: string
+          example: "123456"
+
+    OtpVerificationSuccess:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        data:
+          $ref: "#/components/schemas/User"
+        message:
+          type: string
+          example: "OTP verified successfully."
+
+    # Alert Schema
+    Alert:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        day:
+          type: string
+          example: "monday"
+        time:
+          type: string
+          format: time
+          example: "15950073234"
+        createdAt:
+          type: string
+          format: date-time
+          example: "1595007379"
+        updatedAt:
+          type: string
+          format: date-time
+          example: "1595007379"
+
+    DayEnum:
+      type: string
+      enum:
+        - monday
+        - tuesday
+        - wednesday
+        - thursday
+        - friday
+        - saturday
+
+      description: Select day.
+
+    SetAlertRequest:
+      type: object
+      properties:
+        day:
+          $ref: "#/components/schemas/DayEnum"
+          example: "monday"
+        time:
+          type: string
+          format: time
+          example: "14:00"
+      required:
+        - day
+        - time
+
+    SetAlertResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 201
+        data:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            day:
+              $ref: "#/components/schemas/DayEnum"
+            time:
+              type: string
+              format: time
+              example: "14:00:00"
+        message:
+          type: string
+          example: "Alert set successfully."
+    CheckAlertResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: "It's time to read article."
+        data:
+
+  securitySchemes:
+    bearerAuth:
+      description: 'JWT Authorization header using the Bearer scheme. Example: "Authorization: Bearer {token}"'
+      type: http
+      scheme: bearer
+      bearerFormat: "JWT"
+  responses:
+    Unauthorized:
+      description: |
+        - Invalid credentials 
+        - Expired access OR refresh token
+        - Revoked access OR refresh token
+        - Not found access token
+    Conflict:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Category name already exists."
+
+    CreateCategorySuccess:
+      description: Category created successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "New category created successfully."
+              data:
+                $ref: "#/components/schemas/Category"
+
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "No category found."
+
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Invalid request data."
+
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Internal Server Error."
+
+paths:
+  /api/v1/category/create:
+    post:
+      summary: Create a new category
+      tags:
+        - Categories
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCategoryRequest"
+      responses:
+        201:
+          $ref: "#/components/responses/CreateCategorySuccess"
+        409:
+          $ref: "#/components/responses/Conflict"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/category/update/{id}:
+    put:
+      summary: Update a category
+      tags:
+        - Categories
+      description: Updates the category details such as `categoryName` and/or `color` for the given category `id`.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The ID of the category to update.
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateCategoryRequest"
+
+      responses:
+        201:
+          $ref: "#/components/responses/CreateCategorySuccess"
+        409:
+          $ref: "#/components/responses/Conflict"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/category/delete/{id}:
+    delete:
+      summary: Delete a category
+      tags:
+        - Categories
+      description: Deletes a category by its `id`.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The ID of the category to delete.
+          schema:
+            type: integer
+            example: 1
+      responses:
+        "200":
+          description: Category deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: "Category is removed successfully."
+        201:
+          $ref: "#/components/responses/CreateCategorySuccess"
+        409:
+          $ref: "#/components/responses/Conflict"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/category/list:
+    get:
+      summary: Get all categories with search, pagination, and limit
+      tags:
+        - Categories
+      parameters:
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: Search term for filtering categories
+        - in: query
+          name: page
+          schema:
+            type: integer
+            example: 1
+          description: Page number for pagination
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+            example: 10
+          description: Number of categories per page
+      responses:
+        200:
+          description: Categories fetched successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriesResponse"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/article/create:
+    post:
+      summary: Create a new article
+      tags:
+        - Articles
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateArticleRequest"
+      responses:
+        201:
+          description: Article created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateArticleSuccess"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/article/update/{id}:
+    put:
+      summary: Update an existing article
+      tags:
+        - Articles
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            example: 1
+          description: ID of the article to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateArticleRequest"
+      responses:
+        200:
+          description: Article updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateArticleSuccess"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/article/{id}:
+    get:
+      summary: Get a single article by ID
+      tags:
+        - Articles
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            example: 1
+          description: ID of the article to retrieve
+      responses:
+        200:
+          description: Article found successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  data:
+                    $ref: "#/components/schemas/Article"
+                  message:
+                    type: string
+                    example: "Article found successfully."
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/article/list/{id}:
+    get:
+      summary: Get all articles by category ID with search, pagination, and perPage limit
+      tags:
+        - Articles
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            example: 2
+          description: ID of the category to filter articles by
+        - in: query
+          name: page
+          schema:
+            type: integer
+            example: 1
+          description: Page number for pagination
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+            example: 10
+          description: Number of articles per page
+        - in: query
+          name: search
+          schema:
+            type: string
+            example: ""
+          description: Search term for filtering articles
+      responses:
+        200:
+          description: Articles found successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArticlesResponse"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/article/delete/{id}:
+    delete:
+      summary: "Delete an article by ID"
+      description: "Deletes an article based on the provided ID. If the article does not exist or has already been removed, an error is returned."
+      tags:
+        - Articles
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: "ID of the article to be deleted."
+          schema:
+            type: integer
+            example: 1
+      responses:
+        "200":
+          description: "Article deleted successfully"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: "Article deleted successfully"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          description: "Article not found or already removed"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: "Article does not exist or removed."
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/auth/register:
+    post:
+      summary: Register a new user
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+      responses:
+        201:
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RegisterSuccess"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/otp/verify:
+    post:
+      summary: Verify OTP for a user's phone number
+      description: Verifies the OTP provided by the user against the OTP stored in the database for the given phone number.
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                countryCode:
+                  type: string
+                  example: "+91"
+                  description: "Country code of the user's phone number"
+                phoneNo:
+                  type: string
+                  example: "1234567890"
+                  description: "User's phone number without country code"
+                otp:
+                  type: string
+                  example: "123456"
+                  description: "The OTP to be verified"
+              required:
+                - countryCode
+                - phoneNo
+                - otp
+      responses:
+        "200":
+          description: OTP verified successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: "user_12345"
+                        description: "Unique identifier for the user"
+                      countryCode:
+                        type: string
+                        example: "+91"
+                      phoneNo:
+                        type: string
+                        example: "1234567890"
+                  message:
+                    type: string
+                    example: "OTP verified successfully."
+        "400":
+          description: Invalid OTP or phone number
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  message:
+                    type: string
+                    example: "Invalid OTP or phone number."
+        "404":
+          description: User does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: "User does not exist."
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 500
+                  message:
+                    type: string
+                    example: "Internal server error."
+  /api/v1/favourites/like/{articleId}:
+    post:
+      summary: Add like to an article
+      tags:
+        - Favourites
+      security:
+        - bearerAuth: [] # Require JWT token for this endpoint
+      parameters:
+        - in: path
+          name: articleId
+          required: true
+          schema:
+            type: integer
+            example: 1
+          description: ID of the article to like
+      responses:
+        200:
+          description: Like added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: "Like added successfully"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/favourites/list:
+    get:
+      summary: Get all liked articles
+      tags:
+        - Favourites
+      security:
+        - bearerAuth: [] # Require JWT token for this endpoint
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            example: 1
+          description: Page number for pagination
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+            example: 10
+          description: Number of articles per page
+        - in: query
+          name: search
+          schema:
+            type: string
+
+          description: Search term to filter articles
+      responses:
+        200:
+          description: List of favourite articles found successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/FavouriteArticle"
+                  message:
+                    type: string
+                    example: "Favourite articles found successfully."
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/favourites/dislike/{likedId}:
+    delete:
+      summary: Remove like from an article
+      tags:
+        - Favourites
+      security:
+        - bearerAuth: [] # Require JWT token for this endpoint
+      parameters:
+        - in: path
+          name: likedId
+          required: true
+          schema:
+            type: integer
+          description: ID of the article to remove like from
+      responses:
+        200:
+          description: Like removed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: "Article disliked successfully."
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/alerts/set:
+    post:
+      summary: Set an alert for a specific day and time
+      tags:
+        - Alerts
+      description: Set an alert for a user specifying the day of the week and time.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetAlertRequest"
+      responses:
+        "201":
+          description: Alert set successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SetAlertResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+  /api/v1/alerts/get:
+    get:
+      summary: Check if there's an alert for today
+      tags:
+        - Alerts
+      description: Retrieve the alert for the current day and time for the authenticated user. Returns an alert if it's the correct time for the alert, otherwise provides appropriate messages.
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Alert retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CheckAlertResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
